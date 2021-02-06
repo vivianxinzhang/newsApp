@@ -12,5 +12,4 @@
         android:layout_gravity="center"
         android:text="Home"
         android:textSize="100sp" />
-
 </FrameLayout>

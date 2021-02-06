@@ -16,10 +16,8 @@
 local.properties
 
 build.gradle
-radle.properties
+gradle.properties
 gradle/
 gradlew
 gradlew.bat
 settings.gradle
-gradle.properties
-
