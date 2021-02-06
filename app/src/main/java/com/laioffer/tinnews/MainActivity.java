@@ -35,29 +35,30 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
         NavigationUI.setupActionBarWithNavController(this, navController);
 
-        NewsApi api = RetrofitClient.newInstance(this).create(NewsApi.class);
-        api.getTopHeadlines("US").enqueue(new Callback<NewsResponse>() {
-            @Override
-            public void onResponse(Call<NewsResponse> call, Response<NewsResponse> response) {
-                if (response.isSuccessful()) {
-                    Log.d("getTopHeadlines", response.body().toString());
-                } else {
-                    Log.d("getTopHeadlines", response.toString());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<NewsResponse> call, Throwable t) {
-
-            }
-        });
-
+        // fetch data from back ending using Retrofit
+//        NewsApi api = RetrofitClient.newInstance(this).create(NewsApi.class);
+//        api.getTopHeadlines("US").enqueue(new Callback<NewsResponse>() {
+//            @Override
+//            public void onResponse(Call<NewsResponse> call, Response<NewsResponse> response) {
+//                if (response.isSuccessful()) {
+//                    Log.d("getTopHeadlines", response.body().toString());
+//                } else {
+//                    Log.d("getTopHeadlines", response.toString());
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<NewsResponse> call, Throwable t) {
+//
+//            }
+//        });
     }
 
     // Overriding onSupportNavigateUp is for handling the top left back button.
     // Notice the title bar also changes with bottom navigation.
     @Override
     public boolean onSupportNavigateUp() {
-        return super.onSupportNavigateUp();
+        return navController.navigateUp();
+        // return super.onSupportNavigateUp();
     }
 }
