@@ -4,10 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-
 import java.util.Objects;
-
-
 
 @Entity
 public class Article {
