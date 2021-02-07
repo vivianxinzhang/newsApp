@@ -43,6 +43,8 @@ public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.Save
         Article article = articles.get(position);
         holder.authorTextView.setText(article.author);
         holder.descriptionTextView.setText(article.description);
+        holder.favoriteIcon.setOnClickListener(v -> itemCallback.onRemoveFavorite(article));
+        holder.itemView.setOnClickListener(v -> itemCallback.onOpenDetail(article));
     }
 
     // providing the current data collection size
@@ -52,8 +54,6 @@ public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.Save
     }
 
     // 3. SavedNewsViewHolder:
-
-
     public static class SavedNewsViewHolder extends RecyclerView.ViewHolder {
         TextView authorTextView;
         TextView descriptionTextView;
@@ -66,5 +66,19 @@ public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.Save
             descriptionTextView = binding.savedItemDescriptionContent;
             favoriteIcon = binding.savedItemFavoriteImageView;
         }
+    }
+
+    // remove items from favorite
+    interface ItemCallback {
+        // onOpenDetails is to be implemented for opening a new fragment for article details.
+        void onOpenDetail(Article article);
+        // onRemoveFavorite is te be implemented to remove articles in the saved database.
+        void onRemoveFavorite(Article article);
+    }
+
+    private ItemCallback itemCallback;
+
+    public void setItemCallback(ItemCallback itemCallback) {
+        this.itemCallback = itemCallback;
     }
 }
