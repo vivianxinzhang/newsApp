@@ -13,6 +13,8 @@ import com.laioffer.tinnews.model.NewsResponse;
 import com.laioffer.tinnews.network.NewsApi;
 import com.laioffer.tinnews.network.RetrofitClient;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,6 +29,17 @@ public class NewsRepository {
         // The database instance is provided by casting the application context into TinNewsApplication.
     }
 
+    // data for save fragment
+    // Any updates in the Article table will immediately trigger new updates through the LiveData
+    public LiveData<List<Article>> getAllSavedArticles() {
+        return database.articleDao().getAllArticles();
+    }
+
+    public void deleteSavedArticle(Article article) {
+        AsyncTask.execute(() -> database.articleDao().deleteArticle(article));
+    }
+
+    // data for home fragment
     public LiveData<NewsResponse> getTopHeadlines(String country) {
         MutableLiveData<NewsResponse> topHeadlinesLiveData = new MutableLiveData<>();
         newsApi.getTopHeadlines(country)
@@ -48,6 +61,7 @@ public class NewsRepository {
         return topHeadlinesLiveData;
     }
 
+    // data for search fragment
     public LiveData<NewsResponse> searchNews(String query) {
         MutableLiveData<NewsResponse> everyThingLiveData = new MutableLiveData<>();
         newsApi.getEverything(query, 40)
@@ -108,5 +122,7 @@ public class NewsRepository {
             liveData.setValue(success);
         }
     }
+
+
 
 }

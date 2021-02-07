@@ -79,7 +79,7 @@ public class HomeFragment extends Fragment implements CardStackListener {
         viewModel.getTopHeadlines()
                 .observe(getViewLifecycleOwner(), newsResponse -> {
                     if (newsResponse != null) {
-                        Log.d("HomeFragment", newsResponse.toString());
+                        // Log.d("HomeFragment", newsResponse.toString());
                         articles = newsResponse.articles;
                         swipeAdapter.setArticles(articles);
                     }

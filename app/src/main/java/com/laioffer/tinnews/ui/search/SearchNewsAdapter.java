@@ -44,7 +44,7 @@ public class SearchNewsAdapter extends RecyclerView.Adapter<SearchNewsAdapter.Se
         holder.favoriteImageView.setImageResource(R.drawable.ic_favorite_24dp);
         holder.itemTitleTextView.setText(article.title);
         // Display Images with Picasso
-        Picasso.get().load(article.urlToImage).resize(50, 50).into(holder.itemImageView);
+        Picasso.get().load(article.urlToImage).resize(200, 200).into(holder.itemImageView);
     }
 
     // getItemCount is for providing the current data collection size;
