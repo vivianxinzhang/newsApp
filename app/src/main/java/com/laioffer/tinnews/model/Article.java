@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
+// 如果是自己定义的class必须要serialize才能传输
 public class Article implements Serializable {
     public String author;
     public String content;

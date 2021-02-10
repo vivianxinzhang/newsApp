@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
@@ -59,10 +60,16 @@ public class SaveFragment extends Fragment {
                             }
                         }
                 );
+
         savedNewsAdapter.setItemCallback(new SavedNewsAdapter.ItemCallback() {
             @Override
             public void onOpenDetail(Article article) {
                 Log.d("onOpenDetails", article.toString());
+                // navigation integration: open DetailsFragment + Passe article argument to DetailFragment
+                // Pass in the article in the navigation direction, then call the navigate with the direction.
+                SaveFragmentDirections.ActionNavigationSaveToNavigationDetails direction =
+                        SaveFragmentDirections.actionNavigationSaveToNavigationDetails(article);    // 对应 nav_graph.xml 中的action id 表示action的箭头
+                NavHostFragment.findNavController(SaveFragment.this).navigate(direction);
             }
 
             @Override
@@ -71,4 +78,6 @@ public class SaveFragment extends Fragment {
             }
         });
     }
+
+
 }

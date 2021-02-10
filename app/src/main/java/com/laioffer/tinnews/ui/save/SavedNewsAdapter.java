@@ -45,8 +45,12 @@ public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.Save
         holder.descriptionTextView.setText(article.description);
         holder.favoriteIcon.setOnClickListener(v ->
                 itemCallback.onRemoveFavorite(article));
-        holder.itemView.setOnClickListener(v ->
-                itemCallback.onOpenDetail(article));
+        // This notifies the outside callback listener that onOpenDetails is called.
+        holder.itemView.setOnClickListener(v -> {
+            if (itemCallback != null) {
+                itemCallback.onOpenDetail(article);
+            }
+        });
     }
 
     // providing the current data collection size
@@ -54,6 +58,7 @@ public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.Save
     public int getItemCount() {
         return articles.size();
     }
+
 
     // 3. SavedNewsViewHolder: 减少binding
     public static class SavedNewsViewHolder extends RecyclerView.ViewHolder {

@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.laioffer.tinnews.databinding.FragmentSearchBinding;
@@ -81,7 +82,13 @@ public class SearchFragment extends Fragment {
                     }
                 });
 
+        // Provide an anonymous implementation of ItemCallback to the savedNewsAdapter in the SearchFragment.onViewCreated:
+        // provide the required argument article, and navigate to the direction.
+        newsAdapter.setItemCallback(article -> {
+            SearchFragmentDirections.ActionNavigationSaveToNavigationDetails direction =
+                    SearchFragmentDirections.actionNavigationSaveToNavigationDetails(article);
 
-
+            NavHostFragment.findNavController(SearchFragment.this).navigate(direction);
+        });
     }
 }

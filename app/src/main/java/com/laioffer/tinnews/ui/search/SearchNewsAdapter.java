@@ -18,9 +18,19 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchNewsAdapter extends RecyclerView.Adapter<SearchNewsAdapter.SearchNewsViewHolder>{
+public class SearchNewsAdapter extends RecyclerView.Adapter<SearchNewsAdapter.SearchNewsViewHolder> {
+    interface ItemCallback {
+        // onOpenDetails is to be implemented for opening a new fragment for article details.
+        void onOpenDetails(Article article);
+    }
+
     // 1. Supporting data:
     private List<Article> articles = new ArrayList<>();
+    private ItemCallback itemCallback;
+
+    public void setItemCallback(ItemCallback itemCallback) {
+        this.itemCallback = itemCallback;
+    }
 
     public void setArticles(List<Article> newList) {
         articles.clear();
@@ -45,6 +55,15 @@ public class SearchNewsAdapter extends RecyclerView.Adapter<SearchNewsAdapter.Se
         holder.itemTitleTextView.setText(article.title);
         // Display Images with Picasso
         Picasso.get().load(article.urlToImage).resize(200, 200).into(holder.itemImageView);
+
+        // itemCallback to inform the implementer the onOpenDetails event when an item is clicked.
+        // In SearchNewsAdapter.onBindViewHolder we call onOpenDetails whenever the item is clicked.
+        holder.itemView.setOnClickListener(v ->
+        {
+            if (itemCallback != null) {
+                itemCallback.onOpenDetails(article);
+            }
+        });
     }
 
     // getItemCount is for providing the current data collection size;
