@@ -11,6 +11,7 @@ import com.facebook.stetho.Stetho;
 
 // ？？ 为什么要有这个class
 public class TinNewsApplication extends Application {
+    // singleton
     private TinNewsDatabase database;
 
     @Override

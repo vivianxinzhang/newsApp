@@ -8,6 +8,8 @@ import com.laioffer.tinnews.ui.home.HomeViewModel;
 import com.laioffer.tinnews.ui.save.SaveViewModel;
 import com.laioffer.tinnews.ui.search.SearchViewModel;
 
+// 通过 factory 新建的 ViewModel 是有生命周期的
+// 通过 NewsViewModelFactory 创建的 viewModel 被存在缓存里 view之间来回切换 之前的state不会丢失
 public class NewsViewModelFactory implements ViewModelProvider.Factory {
     private final NewsRepository repository;
 

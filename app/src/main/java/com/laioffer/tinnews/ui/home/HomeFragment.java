@@ -71,18 +71,24 @@ public class HomeFragment extends Fragment implements CardStackListener {
         });
         binding.homeUnlikeButton.setOnClickListener(v -> swipeCard(Direction.Left));
 
-
         NewsRepository repository = new NewsRepository(getContext());
+
+        // alternative: 此种方法创建的 view 之间切换 之前的状态会丢失 每次都是重新创建
+        // viewModel = new HomeViewModel(repository);
+        // 通过 NewsViewModelFactory 创建的 viewModel 被存在缓存里 view之间来回切换 之前的state不会丢失
+
         viewModel = new ViewModelProvider(this, new NewsViewModelFactory(repository))
                 .get(HomeViewModel.class);
         viewModel.setCountryInput("us");
         viewModel.getTopHeadlines()
-                .observe(getViewLifecycleOwner(), newsResponse -> {
-                    if (newsResponse != null) {
-                        // Log.d("HomeFragment", newsResponse.toString());
-                        articles = newsResponse.articles;
-                        swipeAdapter.setArticles(articles);
-                    }
+                .observe(   // observe是异步函数
+                        getViewLifecycleOwner(),    //
+                        newsResponse -> {
+                            if (newsResponse != null) {
+                                // Log.d("HomeFragment", newsResponse.toString());
+                                articles = newsResponse.articles;
+                                swipeAdapter.setArticles(articles);
+                            }
                 });
     }
 

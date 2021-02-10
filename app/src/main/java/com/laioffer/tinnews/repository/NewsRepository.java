@@ -29,14 +29,17 @@ public class NewsRepository {
         // The database instance is provided by casting the application context into TinNewsApplication.
     }
 
-    // data for save fragment
+    // data for save fragment:
     // Any updates in the Article table will immediately trigger new updates through the LiveData
+    // 读操作比较快 也不会data racing  不用AsyncTask
     public LiveData<List<Article>> getAllSavedArticles() {
         return database.articleDao().getAllArticles();
     }
 
     public void deleteSavedArticle(Article article) {
-        AsyncTask.execute(() -> database.articleDao().deleteArticle(article));
+        // 此处也是用 AsyncTask  但不需要return结果
+        AsyncTask.execute(() ->
+                database.articleDao().deleteArticle(article));
     }
 
     // data for home fragment

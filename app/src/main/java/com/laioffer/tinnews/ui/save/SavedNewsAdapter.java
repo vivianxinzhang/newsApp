@@ -16,8 +16,8 @@ import com.laioffer.tinnews.model.Article;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.SavedNewsViewHolder>{
-    // 1. Supporting data:
+public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.SavedNewsViewHolder> {
+    // 1. Supporting data: 提供数据
     private List<Article> articles = new ArrayList<>();
 
     public void setArticles(List<Article> newsList) {
@@ -43,8 +43,10 @@ public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.Save
         Article article = articles.get(position);
         holder.authorTextView.setText(article.author);
         holder.descriptionTextView.setText(article.description);
-        holder.favoriteIcon.setOnClickListener(v -> itemCallback.onRemoveFavorite(article));
-        holder.itemView.setOnClickListener(v -> itemCallback.onOpenDetail(article));
+        holder.favoriteIcon.setOnClickListener(v ->
+                itemCallback.onRemoveFavorite(article));
+        holder.itemView.setOnClickListener(v ->
+                itemCallback.onOpenDetail(article));
     }
 
     // providing the current data collection size
@@ -53,7 +55,7 @@ public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.Save
         return articles.size();
     }
 
-    // 3. SavedNewsViewHolder:
+    // 3. SavedNewsViewHolder: 减少binding
     public static class SavedNewsViewHolder extends RecyclerView.ViewHolder {
         TextView authorTextView;
         TextView descriptionTextView;
@@ -72,6 +74,7 @@ public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.Save
     interface ItemCallback {
         // onOpenDetails is to be implemented for opening a new fragment for article details.
         void onOpenDetail(Article article);
+
         // onRemoveFavorite is te be implemented to remove articles in the saved database.
         void onRemoveFavorite(Article article);
     }
