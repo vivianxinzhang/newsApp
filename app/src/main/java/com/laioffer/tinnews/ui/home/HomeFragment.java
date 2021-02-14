@@ -79,6 +79,7 @@ public class HomeFragment extends Fragment implements CardStackListener {
 
         viewModel = new ViewModelProvider(this, new NewsViewModelFactory(repository))
                 .get(HomeViewModel.class);
+        // HomeFragment的viewModel viewModel.setCountryInput(Locale.getDefault().getCountry())自动match手机语言
         viewModel.setCountryInput("us");
         viewModel.getTopHeadlines()
                 .observe(   // observe是异步函数

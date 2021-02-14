@@ -44,7 +44,9 @@ public class SearchFragment extends Fragment {
 
         super.onViewCreated(view, savedInstanceState);
 
+        // Adapter 控制数据如何绑定
         SearchNewsAdapter newsAdapter = new SearchNewsAdapter();
+        // GridLayoutManager 负责排版
         GridLayoutManager gridLayoutManager = new GridLayoutManager(requireContext(), 2);
         binding.newsResultsRecyclerView.setLayoutManager(gridLayoutManager);
         binding.newsResultsRecyclerView.setAdapter(newsAdapter);

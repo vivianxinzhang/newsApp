@@ -1,5 +1,6 @@
 package com.laioffer.tinnews.ui.search;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.TextureView;
 import android.view.View;
@@ -40,10 +41,15 @@ public class SearchNewsAdapter extends RecyclerView.Adapter<SearchNewsAdapter.Se
 
     // 2. Adapter overrides:
     // onCreateViewHolder is for providing the generated item views;
+    // 减少findViewByID的次数 --> findViewByID是DFS的操作 很费时间
+    // onCreateViewHolder
     @NonNull
     @Override
     public SearchNewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_news_item, parent, false);
+        // View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_news_item, parent, false);
+        Context context = parent.getContext();
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View view = inflater.inflate(R.layout.search_news_item, parent, false);
         return new SearchNewsViewHolder(view);
     }
 
@@ -67,6 +73,7 @@ public class SearchNewsAdapter extends RecyclerView.Adapter<SearchNewsAdapter.Se
     }
 
     // getItemCount is for providing the current data collection size;
+    // 告诉 RecylerView 一共有多少个数据需要显示
     @Override
     public int getItemCount() {
         return articles.size();
